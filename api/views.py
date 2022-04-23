@@ -1,6 +1,6 @@
 from http.client import HTTPResponse
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from api.models import CSUClass
 from api.serializers import ClassSerializer
 
@@ -15,6 +15,6 @@ def class_detail(request, id):
     try:
         course = CSUClass.objects.get(id=id)
     except CSUClass.DoesNotExist:
-        return HttpResponse(status=404)
+        return HttpResponse("Can't find that!")
     serializer = ClassSerializer(course)
     return JsonResponse(serializer.data)
