@@ -1,4 +1,4 @@
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['limitless-lake-64230.herokuapp.com', '127.0.0.1']
 
