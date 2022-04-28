@@ -1,14 +1,16 @@
 from django.db import models
 
 class CSUClass(models.Model):
-    id = models.IntegerField(primary_key=True)
+    cid = models.IntegerField()
     name = models.CharField(max_length=50)
-    section = models.IntegerField()
-    session = models.CharField(max_length=30)
-    begindate = models.DateField()
-    enddate = models.DateField()
-    timestart = models.TimeField(auto_now=False, auto_now_add=False)
-    timeend = models.TimeField(auto_now=False, auto_now_add=False)
+    subject = models.CharField(max_length=5, default = "UNK")
+    semester = models.CharField(max_length=8, default = "UNK")
+    section = models.CharField(max_length=5)
+    session = models.CharField(max_length=50)
+    begindate = models.DateField(null=True)
+    enddate = models.DateField(null=True)
+    timestart = models.TimeField(auto_now=False, auto_now_add=False, null=True)
+    timeend = models.TimeField(auto_now=False, auto_now_add=False, null=True)
     location = models.CharField(max_length=30)
     instructor = models.CharField(max_length=60)
     classtype = models.CharField(max_length=5)
@@ -17,9 +19,11 @@ class CSUClass(models.Model):
     capacity = models.IntegerField()
     credits = models.DecimalField(max_digits=2, decimal_places=1)
     consent = models.CharField(max_length=80)
-    lastadddate = models.DateField()
-    lastdropdate = models.DateField()
-    lastwithdrawdate = models.DateField()
+    lastadddate = models.DateField(null=True)
+    lastdropdate = models.DateField(null=True)
+    lastwithdrawdate = models.DateField(null=True)
+    specialtopic = models.CharField(max_length=100, default=None, null=True)
+    desc = models.TextField(null=True)
 
 class CSUClassDays(models.Model):
     day = models.CharField(max_length=10)

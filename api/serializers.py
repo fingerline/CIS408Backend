@@ -18,7 +18,7 @@ class ClassSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CSUClass
-        fields = ["id", "name", "section", "session", "begindate", "enddate",
+        fields = ["cid", "name", "subject", "semester", "section", "session", "begindate", "enddate",
          "days", "timestart", "timeend", "location", "instructor", "classtype",
           "openstatus", "enrolled", "capacity", "credits", "consent", "lastadddate",
            "lastdropdate", "lastwithdrawdate", "tags"]
