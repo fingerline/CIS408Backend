@@ -1,5 +1,5 @@
 import json
-with open('megajson.json') as jsonin:
+with open('sum22pack.json') as jsonin:
     unfilteredobj = json.load(jsonin)
     count = 0
     for semester in unfilteredobj:

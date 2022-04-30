@@ -6,7 +6,7 @@ from datetime import datetime
 from decimal import Decimal
 
 unfilteredobj = None
-with open('megajson.json') as jsonin:
+with open('sum22pack.json') as jsonin:
     unfilteredobj = json.load(jsonin)
 
 def verify(targettype, dtstring):
