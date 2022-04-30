@@ -2,7 +2,7 @@ from urllib import request
 from django.shortcuts import redirect, render
 from django.http import JsonResponse, HttpResponse
 from api import serializers
-from api.models import CSUClass
+from api.models import CSUClass, CSUTags
 from api.serializers import ClassSerializer
 from rest_framework import generics
 
@@ -17,6 +17,7 @@ def querydict_to_dict(query_dict):
 
 def ClassList(request):
     rectdict = querydict_to_dict(request.GET)
+    with_valid_tags = CSUClass.objects.all()
     filters = {}
     if 'semester' in rectdict:
         filters['semester'] = rectdict['semester']
@@ -25,9 +26,9 @@ def ClassList(request):
     if 'name' in rectdict:
         filters['name__icontains'] = rectdict['name']
     if 'tag' in rectdict:
-        print("those aren't suppoosed to be there")
+        with_valid_tags = CSUClass.objects.filter(id__in=CSUTags.objects.filter(tagabbr="TE").values('classassoc'))
 
-    output = CSUClass.objects.filter(**filters)
+    output = with_valid_tags.filter(**filters)
     serializer = ClassSerializer(output, many=True)
     return JsonResponse(serializer.data, safe=False)
 
