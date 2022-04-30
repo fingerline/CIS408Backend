@@ -26,7 +26,7 @@ def ClassList(request):
     if 'name' in rectdict:
         filters['name__icontains'] = rectdict['name']
     if 'tag' in rectdict:
-        with_valid_tags = CSUClass.objects.filter(id__in=CSUTags.objects.filter(tagabbr="TE").values('classassoc'))
+        with_valid_tags = CSUClass.objects.filter(id__in=CSUTags.objects.filter(tagabbr=rectdict['tag']).values('classassoc'))
 
     output = with_valid_tags.filter(**filters)
     serializer = ClassSerializer(output, many=True)
