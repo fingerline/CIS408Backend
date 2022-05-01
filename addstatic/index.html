@@ -1,0 +1,196 @@
+<!doctype html>
+<!doctype html>
+<html>
+	<head>
+		<title>Cleveland State University</title>
+		<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<meta charset = "UTF-8">
+		<meta http-equiv = "X-UA-Compatible" content="ie=edge">
+
+		<link rel = "stylesheet" type = "text/css" href = "css/bootstrap.css">
+		<link rel = "styelsheet" type = "text/css" href = "css/jquery-ui.css">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+ 		<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+		<script type = "text/javascript" src = "js/jquery-1.12.4.js"></script>
+		<script type = "text/javascript" src = "js/jquery-ui.js"></script>
+		<script type = "text/javascript" src = "index.js"></script>
+		<script type = "text/javascript">
+
+			$( function() {
+    			$( "#from" ).datepicker();
+  					} );
+			$( function() {
+    			$( "#to" ).datepicker();
+  					} );
+  				</script>
+	</head>
+	<body>
+		<nav class = "navbar navbar-inverse">
+			<div class = "container-fluid">
+
+				<h3 style = "color: #fff;">Cleveland State University</h3>
+			</div>
+		</nav>
+		<div class = "container">
+			<h3 style = "text-align: center;font-weight: bold;">COURSE SEARCH</h3>
+			<div class = "row">
+				<form id = "classform" class = "form-horizontal" action="https://limitless-lake-64230.herokuapp.com/api/" method="GET">
+					<div class= "form-group">
+						<label class = "col-lg-2 control-label">Name</label>
+						<div class = "col-lg-4">
+							<input type = "text" class = "form-control" name = "name" placeholder = "Search...">
+						</div>
+					</div>
+					<div class = "form-group">
+						<label class = "col-lg-2 control-label">Semester</label>
+						<div class = "col-lg-4">
+							<input type = "radio" name = "semester" value = "SUM22"> SUMMER 22 <br>
+							<input type = "radio" name = "semester" value = "F22"> FALL 22 <br>
+							<input type = "radio" name = "semester" value = "S23"> SPRING 23<br>
+							<input type = "radio" name = "semester" value = "SUM23"> SUMMER 23
+						</div>
+					</div>
+					<div class = "form-group">
+						<label class = "col-lg-2 control-label">Subject</label>
+						<div class = "col-lg-4">
+							<select class = "subject" class = "form-control" name = "subject">
+								<option value = "">Select</option>
+								<option value = "CIS">CIS</option>
+								<option value = "ESC">ESC</option>
+								<option value = "EEC">EEC</option>
+							</select>
+						</div>
+					</div>
+					<div class = "form-group">
+						<label class = "col-lg-2 control-label">Begin Date</label>
+						<div class = "col-lg-4">
+							<input type = "text" name = "begindate" id = "begindate" class = "form-control">
+						</div>
+					</div>
+					<div class = "form-group">
+						<label class = "col-lg-2 control-label">End Date</label>
+						<div class = "col-lg-4">
+							<input type = "text" name = "end date" id = "enddate" class = "form-control">
+						</div>
+					</div>
+					<div class = "form-group">
+						<label class = "col-lg-2 control-label">Tag</label>
+						<div class = "col-lg-4">
+							<select class = "tag" name = "tag">
+								<option value = "">Select</option>
+								<option value = "WAC">Writing Across the Curriculum</option>
+								<option value = "CC">Core Choice</option>
+								<option value = "TE">Technical Elective</option>
+							</select>
+						</div>
+					</div>
+					<div class = "form-group">
+						<label class = "col-lg-2 control-label"></label>
+						<div class = "col-lg-4">
+							<input type = "submit" name = "submit" class = "btn btn-primary">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class = "row">
+				<table class = "table table-stripped table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Subject</th>
+							<th>Semester</th>
+							<th>Section</th>
+							<th>Session</th>
+							<th>Begin Date</th>
+							<th>End Date</th>
+							<th>Days</th>
+							<th>Time Start</th>
+							<th>Time End</th>
+							<th>Location</th>
+							<th>Instructor</th>
+							<th>Class Type</th>
+							<th>Open Status</th>
+							<th>Enrolled</th>
+							<th>Capacity</th>
+							<th>Credits</th>
+							<th>Consent</th>
+							<th>Last Add Date</th>
+							<th>Last Drop Date</th>
+							<th>Last Withdraw Date</th>
+							<th>Tags</th>
+						</tr>
+					</thead>
+				
+					<tbody>
+						<?php
+							
+							$name = $_POST['name'];
+							$semester = $_POST['semester'];
+							$subject = $_POST['subject'];
+							$begindate = $_POST['begindate'];
+							$bdate = strtotime($begindate);
+							$edate = date("Y/m/d", $bdate);
+
+							$enddate = $_POST['enddate'];
+							$edate = strtotime($enddate);
+							$bdate = date("Y/m/d", $edate);
+							$tag = $_POST['tag'];
+
+							if ($name != "" || $semester != "" || $subject != "" || $bdate != "" | $edate != "" || $tag != ""){
+								$query = "SELECT * FROM courses WHERE name = '$name' = or semester = '$semester' or subject = '$subject' or begindate >= '$bdate' or enddate <= '$edate' or tag = '$tag' "; 
+
+
+							
+									$name = $row['name'];
+									$semester = $row['semester'];
+									$subject = $row['subject'];
+									$begindate = $row['begindate'];
+									$enddate = $row['enddate'];
+									$tag = $row['tag'];
+									?>
+									<tr>
+										<td><?php echo $id;?></td>
+										<td><?php echo $name;?></td>
+										<td><?php echo $subject;?></td>
+										<td><?php echo $semester;?></td>
+										<td><?php echo $section;?></td>
+										<td><?php echo $begindate;?></td>
+										<td><?php echo $enddate;?></td>
+										<td><?php echo $days;?></td>
+										<td><?php echo $timestart;?></td>
+										<td><?php echo $timeend;?></td>
+										<td><?php echo $location;?></td>
+										<td><?php echo $instructor;?></td>
+										<td><?php echo $classtype;?></td>
+										<td><?php echo $openstatus;?></td>
+										<td><?php echo $enrolled;?></td>
+										<td><?php echo $capacity;?></td>
+										<td><?php echo $credits;?></td>
+										<td><?php echo $consent;?></td>
+										<td><?php echo $lastadddate;?></td>
+										<td><?php echo $lastdropdate;?></td>
+										<td><?php echo $lastwithdrawdate;?></td>
+										<td><?php echo $tags;?></td>
+									</tr>
+									<?php
+								}
+
+							}
+							else{
+								?>
+								<tr>
+									<td>Course Not Found</td>
+								</tr>
+								<?php
+							}
+							}
+						}
+					?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
