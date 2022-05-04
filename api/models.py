@@ -25,11 +25,20 @@ class CSUClass(models.Model):
     specialtopic = models.CharField(max_length=100, default=None, null=True)
     desc = models.TextField(null=True)
 
+    def __str__(self):
+        return f"{self.name}: {self.section}"
+
 class CSUClassDays(models.Model):
     day = models.CharField(max_length=10)
     classassoc = models.ForeignKey(CSUClass, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.day}"
 
 class CSUTags(models.Model):
     tagname = models.CharField(max_length=30)
     tagabbr = models.CharField(max_length=6, default=None, null=True, blank=True)
     classassoc = models.ForeignKey(CSUClass, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.classassoc.name}: {self.tagabbr}"
