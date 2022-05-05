@@ -23,10 +23,10 @@ def ClassList(request):
         filters['subject'] = rectdict['subject'].upper()
     if 'name' in rectdict:
         filters['name__icontains'] = rectdict['name']
-    if 'begintime' in rectdict:
-        filters['timestart__gte'] = datetime.strptime(rectdict['begintime'], "%I:%M %p").time()
-    if 'endtime' in rectdict:
-        filters['timeend__lte'] = datetime.strptime(rectdict['endtime'], "%I:%M %p").time()
+    if 'timestart' in rectdict:
+        filters['timestart__gte'] = datetime.strptime(rectdict['timestart'], "%I:%M %p").time()
+    if 'timeend' in rectdict:
+        filters['timeend__lte'] = datetime.strptime(rectdict['timeend'], "%I:%M %p").time()
     if 'tag' in rectdict:
         with_valid_tags = CSUClass.objects.filter(id__in=CSUTags.objects.filter(tagabbr=rectdict['tag']).values('classassoc'))
 
